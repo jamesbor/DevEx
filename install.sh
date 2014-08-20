@@ -7,11 +7,6 @@
 expandVar ()
 {
 	eval echo \""\$${1}"\"
-	echo "${ITEM}"
-	echo "${USER_PREFIX}"
-	echo "${SYSTEM_PREFIX}"
-	echo "${USER_VERSIONS_PREFIX}"
-	echo "${SYSTEM_VERSIONS_PREFIX}"
 }
 
 testFsDirIs ()
