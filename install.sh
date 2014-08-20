@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Lets source any external libs/files
+. ./colours.inc.properties
+
 # Comon Local Functions
 expandVar ()
 {
@@ -31,17 +34,18 @@ reportPathVars ()
 	echo
 	for ITEM in $@
 	do
-		echo "Var:	${ITEM}"
-		echo "Path:	$( expandVar "${ITEM}" )"
-		testFsDirIs "$( expandVar "${ITEM}" )" 		&&
-			echo "	- Exists"						||
-			echo "	- Does not exits"
-		testFsDirRead "$( expandVar "${ITEM}" )" 	&&
-			echo "	- Readable"						||
-			echo "	- Not Readable"
-		testFsDirWrite "$( expandVar "${ITEM}" )" 	&&
-			echo "	- Writeable"					||
-			echo "	- Not Writeable"
+		PATH_TO_REPORT="$( expandVar "${ITEM}" )"
+		echo "${COL_GREEN}Var${COL_BOLD_WHITE}:${COL_BLUE}	${ITEM}${COL_RESET}"
+		echo "${COL_GREEN}Path${COL_BOLD_WHITE}:${COL_BLUE}	${PATH_TO_REPORT}${COL_RESET}"
+		testFsDirIs "${PATH_TO_REPORT}" 								&&
+			echo "	${COL_YELLOW}-${COL_BLUE} Exists${COL_RESET}"		||
+			echo "	${COL_YELLOW}-${COL_RED} Does not exits${COL_RESET}"
+		testFsDirRead "${PATH_TO_REPORT}" 								&&
+			echo "	${COL_YELLOW}-${COL_BLUE} Readable${COL_RESET}"		||
+			echo "	${COL_YELLOW}-${COL_RED} Not Readable${COL_RESET}"
+		testFsDirWrite "${PATH_TO_REPORT}" 								&&
+			echo "	${COL_YELLOW}-${COL_BLUE} Writeable${COL_RESET}"	||
+			echo "	${COL_YELLOW}-${COL_RED} Not Writeable${COL_RESET}"
 	done
 }
 
