@@ -1,22 +1,22 @@
 #!/bin/sh
 
 # Comon Local Functions
-function testFsDirIs ()
+testFsDirIs ()
 {
 	[ -d "${1}" ]
 }
 
-function testFsDirRead ()
+testFsDirRead ()
 {
 	[ -r "${1}" ]
 }
 
-function testFsDirWrite ()
+testFsDirWrite ()
 {
 	[ -w "${1}" ]
 }
 
-function reportPathVars ()
+reportPathVars ()
 {
 	echo
 	for ITEM in $@
