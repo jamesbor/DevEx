@@ -4,6 +4,11 @@
 expandVar ()
 {
 	eval echo \""\$${1}"\"
+	echo "${ITEM}"
+	echo "${USER_PREFIX}"
+	echo "${SYSTEM_PREFIX}"
+	echo "${USER_VERSIONS_PREFIX}"
+	echo "${SYSTEM_VERSIONS_PREFIX}"
 }
 
 testFsDirIs ()
@@ -27,15 +32,15 @@ reportPathVars ()
 	for ITEM in $@
 	do
 		echo "Var:	${ITEM}"
-		echo "Path:	$( expandVar ITEM )"
-		testFsDirIs "$( expandVar ITEM )" 		&&
-			echo "	- Exists"					||
+		echo "Path:	$( expandVar "${ITEM}" )"
+		testFsDirIs "$( expandVar "${ITEM}" )" 		&&
+			echo "	- Exists"						||
 			echo "	- Does not exits"
-		testFsDirRead "$( expandVar ITEM )" 	&&
-			echo "	- Readable"					||
+		testFsDirRead "$( expandVar "${ITEM}" )" 	&&
+			echo "	- Readable"						||
 			echo "	- Not Readable"
-		testFsDirWrite "$( expandVar ITEM )" 	&&
-			echo "	- Writeable"				||
+		testFsDirWrite "$( expandVar "${ITEM}" )" 	&&
+			echo "	- Writeable"					||
 			echo "	- Not Writeable"
 	done
 }
