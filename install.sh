@@ -1,6 +1,11 @@
 #!/bin/sh
 
 # Comon Local Functions
+expandVar ()
+{
+	eval echo \""\$${1}"\"
+}
+
 testFsDirIs ()
 {
 	[ -d "${1}" ]
@@ -22,15 +27,15 @@ reportPathVars ()
 	for ITEM in $@
 	do
 		echo "Var:	${ITEM}"
-		echo "Path:	${!ITEM}"
-		testFsDirIs "${!ITEM}" 		&&
-			echo "	- Exists"		||
+		echo "Path:	$( expandVar ITEM )"
+		testFsDirIs "$( expandVar ITEM )" 		&&
+			echo "	- Exists"					||
 			echo "	- Does not exits"
-		testFsDirRead "${!ITEM}" 	&&
-			echo "	- Readable"		||
+		testFsDirRead "$( expandVar ITEM )" 	&&
+			echo "	- Readable"					||
 			echo "	- Not Readable"
-		testFsDirWrite "${!ITEM}" 	&&
-			echo "	- Writeable"	||
+		testFsDirWrite "$( expandVar ITEM )" 	&&
+			echo "	- Writeable"				||
 			echo "	- Not Writeable"
 	done
 }
