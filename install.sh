@@ -60,6 +60,7 @@ SYSTEM_PREFIX="/DevEx"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
 INSTALL_TYPE="USER"
 
+echo
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
 echo
 reportPathVars 	USER_PREFIX 			\
@@ -78,3 +79,4 @@ echo "Returning to previous state..."
 echo
 rm -r -f -v "$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 rm -r -f -v "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+echo
