@@ -26,7 +26,6 @@ testFsDirWrite ()
 
 reportPathVars ()
 {
-	echo
 	for ITEM in $@
 	do
 		PATH_TO_REPORT="$( expandVar "${ITEM}" )"
@@ -44,14 +43,27 @@ reportPathVars ()
 	done
 }
 
+preparePath()
+{
+	local PROCESS_PATH="${1}"
+	testFsDirIs "${PROCESS_PATH}" && echo "${COL_GREEN}Path already exists: ${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}" || 
+		echo "${COL_GREEN}Creating Path: ${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}"
+		mkdir -p -v "${PROCESS_PATH}"
+}
+
 USER_PREFIX="~/DevEx"
-SYSTEM_PREFIX="/DevEx"
 USER_VERSIONS_PREFIX="~/.DevEx/versions"
+SYSTEM_PREFIX="/DevEx"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
+INSTALL_TYPE="USER"
 
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
+echo
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
+echo "${COL_GREEN}Install Type: ${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
+preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
+preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
 
