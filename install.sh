@@ -29,8 +29,8 @@ reportPathVars ()
 	for ITEM in $@
 	do
 		PATH_TO_REPORT="$( expandVar "${ITEM}" )"
-		echo "${COL_GREEN}Var${COL_BOLD_WHITE}:${COL_BLUE}	${ITEM}${COL_RESET}"
-		echo "${COL_GREEN}Path${COL_BOLD_WHITE}:${COL_BLUE}	${PATH_TO_REPORT}${COL_RESET}"
+		echo "${COL_GREEN}Var${COL_BOLD_WHITE}:${COL_BOLD_BLUE}	${ITEM}${COL_RESET}"
+		echo "${COL_GREEN}Path${COL_BOLD_WHITE}:${COL_BOLD_BLUE}	${PATH_TO_REPORT}${COL_RESET}"
 		testFsDirIs "${PATH_TO_REPORT}" 								&&
 			echo "	${COL_YELLOW}-${COL_BLUE} Exists${COL_RESET}"		||
 			echo "	${COL_YELLOW}-${COL_RED} Does not exits${COL_RESET}"
