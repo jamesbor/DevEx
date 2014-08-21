@@ -26,6 +26,7 @@ testFsDirWrite ()
 
 reportPathVars ()
 {
+	echo
 	for ITEM in $@
 	do
 		PATH_TO_REPORT="$( expandVar "${ITEM}" )"
@@ -63,7 +64,6 @@ INSTALL_TYPE="USER"
 
 echo
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
-echo
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
