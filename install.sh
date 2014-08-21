@@ -47,8 +47,10 @@ preparePath()
 {
 	local PROCESS_PATH="${1}"
 	testFsDirIs "${PROCESS_PATH}" && echo "${COL_GREEN}Path already exists: ${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}" || 
+	{
 		echo "${COL_GREEN}Creating Path: ${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}"
 		mkdir -p -v "${PROCESS_PATH}"
+	}
 }
 
 USER_PREFIX="~/DevEx"
