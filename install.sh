@@ -46,7 +46,7 @@ reportPathVars ()
 preparePath()
 {
 	# In case the path contains '~' symbols, or other variables, lets expand it as we assign...
-	local PROCESS_PATH="$( expandVar "${1}" )"
+	local PROCESS_PATH="${1}"
 	testFsDirIs "${PROCESS_PATH}" && echo "${COL_GREEN}Path already exists:	${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}" || 
 	{
 		echo "${COL_GREEN}Creating Path:	${COL_BOLD_PURPLE}${PROCESS_PATH}${COL_RESET}"
@@ -54,8 +54,8 @@ preparePath()
 	}
 }
 
-USER_PREFIX="~/DevEx"
-USER_VERSIONS_PREFIX="~/.DevEx/versions"
+USER_PREFIX="${HOME}/DevEx"
+USER_VERSIONS_PREFIX="${HOME}/.DevEx/versions"
 SYSTEM_PREFIX="/DevEx"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
 INSTALL_TYPE="USER"
@@ -66,7 +66,9 @@ reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
-echo "${COL_GREEN}Install Type: ${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
-echo preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
-echo preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
+#preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
+#preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+preparePath		"${INSTALL_TYPE}_PREFIX"
+preparePath		"${INSTALL_TYPE}_VERSIONS_PREFIX"
 
