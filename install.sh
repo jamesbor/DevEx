@@ -49,7 +49,7 @@ SYSTEM_PREFIX="/DevEx"
 USER_VERSIONS_PREFIX="~/.DevEx/versions"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
 
-echo "Report of System State in FS locations"
+echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
