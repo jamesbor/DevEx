@@ -59,7 +59,7 @@ preparePath()
 verifyDependencyExecutable()
 {
 	local CHECK="${1}"
-	which -s "${CHECK}" 													&& 
+	which "${CHECK}" 2>/dev/null											&& 
 		echo "Dependency Verified: '${CHECK}', Found executable in path." 	||
 		{
 			echo "Dependency Verificiation Failed! '${CHECK}' was not found in the path."
