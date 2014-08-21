@@ -67,8 +67,6 @@ reportPathVars 	USER_PREFIX 			\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
 echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
-#preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
-#preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
-preparePath		"${INSTALL_TYPE}_PREFIX"
-preparePath		"${INSTALL_TYPE}_VERSIONS_PREFIX"
+preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
+preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
 
