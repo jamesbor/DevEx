@@ -69,7 +69,12 @@ reportPathVars 	USER_PREFIX 			\
 echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
 preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+reportPathVars 	USER_PREFIX 			\
+				USER_VERSIONS_PREFIX 	\
+				SYSTEM_PREFIX 			\
+				SYSTEM_VERSIONS_PREFIX
 echo
 echo "Returning to previous state..."
+echo
 rm -r -f -v "$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 rm -r -f -v "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
