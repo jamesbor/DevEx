@@ -67,6 +67,11 @@ verifyDependencyExecutable()
 		}
 }
 
+gitTagLATEST()
+{
+	git tag ${1} | sort --version-sort
+}
+
 # Verify any dependancys
 verifyDependencyExecutable "git"
 verifyDependencyExecutable "sed"
