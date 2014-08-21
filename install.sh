@@ -56,6 +56,23 @@ preparePath()
 	}
 }
 
+verifyDependencyExecutable()
+{
+	local CHECK="${1}"
+	which -s "${CHECK}" 													&& 
+		echo "Dependency Verified: '${CHECK}', Found executable in path." 	||
+		{
+			echo "Dependency Verificiation Failed! '${CHECK}' was not found in the path."
+			return 1
+		}
+}
+
+# Verify any dependancys
+verifyDependencyExecutable "git"
+verifyDependencyExecutable "sed"
+verifyDependencyExecutable "awk"
+
+# Declare any variables
 USER_PREFIX="${HOME}/DevEx"
 USER_VERSIONS_PREFIX="${HOME}/.DevEx/versions"
 SYSTEM_PREFIX="/DevEx"
