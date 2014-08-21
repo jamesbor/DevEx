@@ -41,6 +41,7 @@ reportPathVars ()
 			echo "	${COL_YELLOW}-${COL_BLUE} Writeable${COL_RESET}"	||
 			echo "	${COL_YELLOW}-${COL_RED} Not Writeable${COL_RESET}"
 	done
+	echo
 }
 
 preparePath()
