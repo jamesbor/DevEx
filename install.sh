@@ -103,9 +103,18 @@ reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
+
 if testFsDirIs "${INSTALL_DIR}"
 then
-	echo "Path: '${INSTALL_DIR}' already exists, updating..."
+	if testFsDirIs "${INSTALL_DIR}/.git"
+	then
+		echo "Path: '${INSTALL_DIR}' already exists, and is a git repo, so lets update it..."
+	else
+		echo "Path: '${INSTALL_DIR}' exists but is not a git repo, so moving to the side so we can make it one..."
+		mv -v "${INSTALL_DIR}" "${INSTALL_DIR}-install-backup-$( date "+%Y-%m-%d-%T" )"
+		echo "Path '${INSTALL_DIR}' is being re-baselined to use git, so going to clone HEAD..."
+		git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
+	fi
 	cd "${INSTALL_DIR}"
 	git pull --verbose --quiet
 	cd -
