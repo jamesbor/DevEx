@@ -88,6 +88,8 @@ SYSTEM_PREFIX="/DevEx"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
 INSTALL_TYPE="USER"
 INSTALL_SOURCE="https://github.com/jamesbor/DevEx.git"
+INSTALL_DIR="$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+DEVEX_HOME="$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 
 echo
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
@@ -96,19 +98,34 @@ reportPathVars 	USER_PREFIX 			\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
 echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
-preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+preparePath		"${INSTALL_DIR}"
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
-echo "About to clone HEAD"
-git clone "${INSTALL_SOURCE}" "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
-echo "Linking Filesystem Symbolicly from: $( expandVar "${INSTALL_TYPE}_PREFIX" ) to: $( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
-ln -l "$( expandVar "${INSTALL_TYPE}_PREFIX" )" "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+if testFsDirIs "${INSTALL_DIR}"
+then
+	echo "Path: '${INSTALL_DIR}' already exists, updating..."
+	cd "${INSTALL_DIR}"
+	git pull --verbose --quiet
+	cd -
+else
+	echo "Path '${INSTALL_DIR}' does not exist, so going to clone HEAD..."
+	git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
+	if testFsDirIs "${DEVEX_HOME}"
+	then
+		echo "Path '${DEVEX_HOME}' exists, nothing to do but report it's state:"
+		ls -l "${DEVEX_HOME}"
+	else
+		echo "Path: '${DEVEX_HOME}' does not exits, so going to link it to: '${INSTALL_DIR}'..."
+		ln -s -v "${INSTALL_DIR}" "${DEVEX_HOME}"
+	fi
+fi
+
 #preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 #echo
-#echo "Returning to previous state..."
-#echo
+#echo "Returning to previous state:"
+#echo "Deleting..."
 #rm -r -f -v "$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 #rm -r -f -v "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
 echo
