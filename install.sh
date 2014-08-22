@@ -112,14 +112,15 @@ then
 else
 	echo "Path '${INSTALL_DIR}' does not exist, so going to clone HEAD..."
 	git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
-	if testFsDirIs "${DEVEX_HOME}"
-	then
-		echo "Path '${DEVEX_HOME}' exists, nothing to do but report it's state:"
-		ls -l "${DEVEX_HOME}"
-	else
-		echo "Path: '${DEVEX_HOME}' does not exits, so going to link it to: '${INSTALL_DIR}'..."
-		ln -s -v "${INSTALL_DIR}" "${DEVEX_HOME}"
-	fi
+fi
+
+if testFsDirIs "${DEVEX_HOME}"
+then
+	echo "Path '${DEVEX_HOME}' exists, nothing to do but report it's state:"
+	ls -l "${DEVEX_HOME}"
+else
+	echo "Path: '${DEVEX_HOME}' does not exits, so going to link it to: '${INSTALL_DIR}'..."
+	ln -s -v "${INSTALL_DIR}" "${DEVEX_HOME}"
 fi
 
 #preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
