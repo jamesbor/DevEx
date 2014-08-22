@@ -141,7 +141,7 @@ else
 fi
 
 cd "${INSTALL_ROOT}/gems"
-${OLDPWD}/ruby.sh
+"${OLDPWD}/ruby.sh"
 cd - >/dev/null
 
 #preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
