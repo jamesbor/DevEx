@@ -5,8 +5,3 @@
 
 # To load it into our current session
 rvm reload
-
-# Now we can get our gem
-gem install cupertino
-
-git clone https://github.com/nomad/cupertino.git
