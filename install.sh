@@ -113,14 +113,14 @@ then
 		echo "Path: '${INSTALL_DIR}' exists but is not a git repo, so moving to the side so we can make it one..."
 		mv -v "${INSTALL_DIR}" "${INSTALL_DIR}-install-backup-$( date "+%Y-%m-%d-%T" )"
 		echo "Path '${INSTALL_DIR}' is being re-baselined to use git, so going to clone HEAD..."
-		git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
+		git clone --quiet --verbose "${INSTALL_SOURCE}" "${INSTALL_DIR}"
 	fi
 	cd "${INSTALL_DIR}"
-	git pull --verbose --quiet
+	git pull --quiet --verbose
 	cd - >/dev/null
 else
 	echo "Path '${INSTALL_DIR}' does not exist, so going to clone HEAD..."
-	git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
+	git clone --quiet --verbose "${INSTALL_SOURCE}" "${INSTALL_DIR}"
 fi
 
 if testFsDirIs "${DEVEX_HOME}"
