@@ -76,6 +76,10 @@ gitTagLATEST()
 verifyDependencyExecutable "git"
 verifyDependencyExecutable "sed"
 verifyDependencyExecutable "awk"
+verifyDependencyExecutable "rvm"
+verifyDependencyExecutable "gem"
+verifyDependencyExecutable "ruby"
+verifyDependencyExecutable "curl"
 
 # Declare any variables
 USER_PREFIX="${HOME}/DevEx"
@@ -83,6 +87,7 @@ USER_VERSIONS_PREFIX="${HOME}/.DevEx/versions"
 SYSTEM_PREFIX="/DevEx"
 SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
 INSTALL_TYPE="USER"
+INSTALL_SOURCE="https://github.com/jamesbor/DevEx.git"
 
 echo
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
@@ -91,15 +96,19 @@ reportPathVars 	USER_PREFIX 			\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
 echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
-preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 preparePath		"$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
 				SYSTEM_PREFIX 			\
 				SYSTEM_VERSIONS_PREFIX
-echo
-echo "Returning to previous state..."
-echo
-rm -r -f -v "$( expandVar "${INSTALL_TYPE}_PREFIX" )"
-rm -r -f -v "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
+echo "About to clone HEAD"
+git clone "${INSTALL_SOURCE}" "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+echo "Linking Filesystem Symbolicly from: $( expandVar "${INSTALL_TYPE}_PREFIX" ) to: $( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+ln -l "$( expandVar "${INSTALL_TYPE}_PREFIX" )" "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+#preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
+#echo
+#echo "Returning to previous state..."
+#echo
+#rm -r -f -v "$( expandVar "${INSTALL_TYPE}_PREFIX" )"
+#rm -r -f -v "$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )"
 echo
