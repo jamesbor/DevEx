@@ -83,25 +83,33 @@ verifyDependencyExecutable "curl"
 
 # Declare any variables
 USER_PREFIX="${HOME}/DevEx"
-USER_VERSIONS_PREFIX="${HOME}/.DevEx/versions"
+USER_ROOT_PREFIX="${HOME}/.DevEx"
+USER_VERSIONS_PREFIX="${USER_ROOT_PREFIX}/versions"
 SYSTEM_PREFIX="/DevEx"
-SYSTEM_VERSIONS_PREFIX="/usr/local/DevEx/versions"
+SYSTEM_ROOT_PREFIX="/usr/local/DevEx"
+SYSTEM_VERSIONS_PREFIX="${SYSTEM_ROOT_PREFIX}/versions"
 INSTALL_TYPE="USER"
 INSTALL_SOURCE="https://github.com/jamesbor/DevEx.git"
 INSTALL_DIR="$( expandVar "${INSTALL_TYPE}_VERSIONS_PREFIX" )/HEAD"
+INSTALL_ROOT="$( expandVar "${INSTALL_TYPE}_ROOT_PREFIX" )"
 DEVEX_HOME="$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 
 echo
 echo "${COL_BOLD_PURPLE}Report of System State in FS locations${COL_RESET}"
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
+				USER_ROOT_PREFIX 		\
 				SYSTEM_PREFIX 			\
+				SYSTEM_ROOT_PREFIX		\
 				SYSTEM_VERSIONS_PREFIX
 echo "${COL_GREEN}Install Type:	${COL_BOLD_PURPLE}${INSTALL_TYPE}${COL_RESET}"
 preparePath		"${INSTALL_DIR}"
+preparePath		"${INSTALL_ROOT}/gems"
 reportPathVars 	USER_PREFIX 			\
 				USER_VERSIONS_PREFIX 	\
+				USER_ROOT_PREFIX 		\
 				SYSTEM_PREFIX 			\
+				SYSTEM_ROOT_PREFIX		\
 				SYSTEM_VERSIONS_PREFIX
 
 if testFsDirIs "${INSTALL_DIR}"
@@ -131,6 +139,10 @@ else
 	echo "Path: '${DEVEX_HOME}' does not exits, so going to link it to: '${INSTALL_DIR}'..."
 	ln -s -v "${INSTALL_DIR}" "${DEVEX_HOME}"
 fi
+
+cd "${INSTALL_ROOT}/gems"
+${OLDPWD}/ruby.sh
+cd - >/dev/null
 
 #preparePath		"$( expandVar "${INSTALL_TYPE}_PREFIX" )"
 #echo
