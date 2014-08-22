@@ -117,7 +117,7 @@ then
 	fi
 	cd "${INSTALL_DIR}"
 	git pull --verbose --quiet
-	cd -
+	cd - >/dev/null
 else
 	echo "Path '${INSTALL_DIR}' does not exist, so going to clone HEAD..."
 	git clone --verbose --quiet "${INSTALL_SOURCE}" "${INSTALL_DIR}"
